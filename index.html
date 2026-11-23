@@ -1,0 +1,645 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PIFAGOR LAB</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg:#080c14;
+  --line:#273246;
+  --text:#edf4ff;
+  --muted:#8e9db4;
+  --cyan:#55d8ff;
+  --blue:#6d91ff;
+  --lime:#c8ff70;
+  --pink:#ff7ac8;
+}
+
+* { box-sizing:border-box; }
+
+body {
+  margin:0;
+  color:var(--text);
+  background:radial-gradient(ellipse at 75% -10%,#1b3150 0,transparent 45%),var(--bg);
+  font-family:Manrope,sans-serif;
+  min-height:100vh;
+}
+
+nav {
+  max-width:1120px;
+  margin:auto;
+  padding:26px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.brand {
+  display:flex;
+  gap:10px;
+  align-items:center;
+  font-weight:800;
+}
+
+.logo {
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  background:linear-gradient(135deg,var(--cyan),var(--blue));
+  display:grid;
+  place-items:center;
+  color:#07101a;
+  font-weight:900;
+}
+
+.navtag {
+  color:var(--muted);
+  font-size:13px;
+  border:1px solid var(--line);
+  border-radius:30px;
+  padding:8px 13px;
+}
+
+main {
+  max-width:1120px;
+  margin:auto;
+  padding:10px 24px 70px;
+}
+
+.hero { padding:30px 0 26px; }
+
+.eyebrow {
+  color:var(--cyan);
+  font-size:12px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  font-weight:800;
+}
+
+.hero h1 {
+  font:700 clamp(36px,6vw,62px)/1.04 'Space Grotesk',sans-serif;
+  letter-spacing:-2px;
+  margin:13px 0;
+}
+
+.hero h1 span { color:var(--cyan); }
+
+.hero p {
+  color:var(--muted);
+  max-width:620px;
+  line-height:1.7;
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:18px;
+}
+
+.card {
+  background:linear-gradient(145deg,rgba(21,30,45,.95),rgba(13,19,30,.96));
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:21px;
+  box-shadow:0 14px 38px #0002;
+}
+
+.cardhead {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:13px;
+}
+
+.cardhead h2 { font-size:16px; margin:0; }
+.tiny { font-size:12px; color:var(--muted); }
+
+.visual {
+  height:330px;
+  border-radius:15px;
+  background:radial-gradient(circle at 50% 55%,#1c2d46,transparent 62%),#0a111c;
+  overflow:hidden;
+}
+
+.visual svg { width:100%; height:100%; }
+
+.svglabel {
+  font:600 14px Manrope,sans-serif;
+  fill:#eaf4ff;
+}
+
+.squares {
+  font:700 13px Manrope,sans-serif;
+  fill:#fff;
+}
+
+.controls {
+  display:grid;
+  gap:17px;
+  margin-top:20px;
+}
+
+.sliderrow {
+  display:grid;
+  grid-template-columns:24px 1fr 56px;
+  align-items:center;
+  gap:10px;
+}
+
+.sliderrow label { font-weight:800; font-size:13px; }
+
+.sliderrow output {
+  font:600 13px 'Space Grotesk';
+  text-align:right;
+  color:var(--cyan);
+}
+
+input[type=range] {
+  width:100%;
+  accent-color:var(--cyan);
+  cursor:pointer;
+}
+
+.equation {
+  margin-top:20px;
+  border:1px solid #25374c;
+  background:#0b1421;
+  border-radius:14px;
+  padding:17px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  flex-wrap:wrap;
+  font:600 18px 'Space Grotesk';
+}
+
+.equation .a { color:var(--cyan); }
+.equation .b { color:var(--lime); }
+.equation .c { color:var(--pink); }
+
+.equation .check {
+  font-size:12px;
+  color:var(--muted);
+  width:100%;
+  text-align:center;
+  margin-top:4px;
+}
+
+.sidepanel { display:grid; gap:14px; }
+
+.metric {
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:16px;
+  background:#0c1420;
+}
+
+.metric small { color:var(--muted); font-size:12px; }
+
+.metric strong {
+  display:block;
+  font:600 27px 'Space Grotesk';
+  margin:7px 0;
+}
+
+.metric strong.c { color:var(--pink); }
+.metric strong.a { color:var(--cyan); }
+.metric strong.b { color:var(--lime); }
+
+.formula {
+  padding:14px;
+  border-radius:14px;
+  background:#0b1421;
+  color:#c9d7ea;
+  line-height:1.6;
+  font-size:13px;
+}
+
+.facts { margin-top:20px; }
+.facts h2 { font-size:18px; margin:0 0 14px; }
+
+.factgrid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.fact {
+  padding:17px;
+  border-radius:16px;
+  background:#151e2d;
+  border:1px solid var(--line);
+  cursor:pointer;
+  transition:.25s;
+  min-height:124px;
+}
+
+.fact:hover {
+  transform:translateY(-3px);
+  border-color:#436280;
+}
+
+.fact .num {
+  font-size:11px;
+  color:var(--cyan);
+  font-weight:800;
+}
+
+.fact h3 { font-size:14px; margin:9px 0; }
+
+.fact p {
+  font-size:12px;
+  line-height:1.7;
+  color:var(--muted);
+  margin:0;
+  display:none;
+}
+
+.fact.open p { display:block; }
+
+.fact.open {
+  border-color:var(--cyan);
+  background:#19283b;
+}
+
+footer {
+  text-align:center;
+  color:#637187;
+  font-size:12px;
+  padding:24px;
+}
+
+@media(max-width:800px) {
+  .grid { grid-template-columns:1fr; }
+  .visual { height:300px; }
+  .factgrid { grid-template-columns:1fr; }
+  .navtag { display:none; }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="brand">
+    <div class="logo">△</div>
+    PIFAGOR LAB
+  </div>
+  <div class="navtag">ИНТЕРАКТИВНАЯ МАТЕМАТИКА</div>
+</nav>
+
+<main>
+
+<section class="hero">
+  <div class="eyebrow">Математика в движении · 01</div>
+
+  <h1>
+    Теорема Пифагора<br>
+    <span>оживает на экране.</span>
+  </h1>
+
+  <p>
+    Измени катеты — смотри, как перестраивается
+    треугольник, растут квадраты и меняется гипотенуза.
+    Всё связано математически, а не просто нарисовано.
+  </p>
+</section>
+
+<div class="grid">
+
+<section class="card">
+
+  <div class="cardhead">
+    <h2>Геометрическая модель</h2>
+    <span class="tiny">двигай ползунки ↘</span>
+  </div>
+
+  <div class="visual">
+    <svg id="diagram" viewBox="0 0 520 330"></svg>
+  </div>
+
+  <div class="controls">
+
+    <div class="sliderrow">
+      <label style="color:var(--cyan)">a</label>
+      <input id="aSlider" type="range" min="1" max="8" step="0.1" value="3">
+      <output id="aOut">3.0</output>
+    </div>
+
+    <div class="sliderrow">
+      <label style="color:var(--lime)">b</label>
+      <input id="bSlider" type="range" min="1" max="8" step="0.1" value="4">
+      <output id="bOut">4.0</output>
+    </div>
+
+  </div>
+
+  <div class="equation">
+    <span class="a" id="aSq">3²</span>
+    +
+    <span class="b" id="bSq">4²</span>
+    =
+    <span class="c" id="cSq">5²</span>
+    <div class="check" id="proof"></div>
+  </div>
+
+</section>
+
+<section class="card sidepanel">
+
+  <div class="cardhead">
+    <h2>Пифагоровы вычисления</h2>
+    <span class="tiny">LIVE</span>
+  </div>
+
+  <div class="metric">
+    <small>КАТЕТ a</small>
+    <strong class="a" id="aValue">3.00</strong>
+    <small>Квадрат: <span id="aArea">9.00</span></small>
+  </div>
+
+  <div class="metric">
+    <small>КАТЕТ b</small>
+    <strong class="b" id="bValue">4.00</strong>
+    <small>Квадрат: <span id="bArea">16.00</span></small>
+  </div>
+
+  <div class="metric">
+    <small>ГИПОТЕНУЗА c</small>
+    <strong class="c" id="cValue">5.00</strong>
+    <small>c = √(a² + b²)</small>
+  </div>
+
+  <div class="formula">
+    Если угол между сторонами <b>a</b> и <b>b</b>
+    равен 90°, то сумма площадей квадратов на катетах
+    равна площади квадрата на гипотенузе.
+  </div>
+
+</section>
+</div>
+
+<section class="card facts">
+
+  <h2>✨ Интересные факты о теореме Пифагора</h2>
+
+  <p style="color:var(--muted);font-size:13px;margin-bottom:18px">
+    Каждая карточка скрывает интересную информацию.
+    Нажимай, чтобы раскрыть её.
+  </p>
+
+  <div class="factgrid">
+
+    <div class="fact" onclick="this.classList.toggle('open')">
+      <div class="num">ФАКТ 01 · ИРРАЦИОНАЛЬНЫЕ ЧИСЛА</div>
+      <h3>Квадрат с диагональю √2</h3>
+      <p>
+        Если сторона квадрата равна 1, его диагональ
+        равна √2. Это число иррациональное:
+        его десятичная запись бесконечна и
+        не повторяется периодически.
+      </p>
+    </div>
+
+    <div class="fact" onclick="this.classList.toggle('open')">
+      <div class="num">ФАКТ 02 · ПРЕЗИДЕНТ И МАТЕМАТИКА</div>
+      <h3>Доказательство от президента</h3>
+      <p>
+        Джеймс Гарфилд, будущий 20-й президент США,
+        в 1876 году придумал собственное доказательство
+        теоремы, используя площадь трапеции.
+      </p>
+    </div>
+
+    <div class="fact" onclick="this.classList.toggle('open')">
+      <div class="num">ФАКТ 03 · ОБРАТНОЕ ПРАВИЛО</div>
+      <h3>Можно узнать угол по сторонам</h3>
+      <p>
+        Если квадраты двух меньших сторон в сумме
+        дают квадрат самой длинной стороны,
+        то треугольник прямоугольный.
+        Это обратная теорема Пифагора.
+      </p>
+    </div>
+
+    <div class="fact" onclick="this.classList.toggle('open')">
+      <div class="num">ФАКТ 04 · ТРИ ИЗМЕРЕНИЯ</div>
+      <h3>Формула выходит в 3D</h3>
+      <p>
+        В пространстве расстояние между двумя точками
+        можно найти по формуле:
+        d = √(x² + y² + z²).
+        Это пространственное обобщение теоремы.
+      </p>
+    </div>
+
+    <div class="fact" onclick="this.classList.toggle('open')">
+      <div class="num">ФАКТ 05 · БЫТОВАЯ ЗАДАЧА</div>
+      <h3>Насколько высоко достанет лестница?</h3>
+      <p>
+        Если известны длина лестницы и расстояние
+        от её основания до стены, можно вычислить
+        высоту, на которой окажется верхний конец.
+        Стена, пол и лестница образуют прямоугольный
+        треугольник.
+      </p>
+    </div>
+
+    <div class="fact" onclick="this.classList.toggle('open')">
+      <div class="num">ФАКТ 06 · НАВИГАЦИЯ</div>
+      <h3>Кратчайшее расстояние на сетке</h3>
+      <p>
+        Если путь на карте проходит сначала на восток,
+        а затем на север, эти перемещения можно
+        представить катетами. Теорема помогает найти
+        прямое расстояние между начальной и конечной
+        точками на плоской карте.
+      </p>
+    </div>
+
+    <div class="fact" onclick="this.classList.toggle('open')">
+      <div class="num">ФАКТ 07 · РОБОТОТЕХНИКА</div>
+      <h3>Как робот оценивает расстояние</h3>
+      <p>
+        В робототехнике геометрические вычисления
+        помогают определять расстояние между точками
+        и планировать перемещения. Для прямоугольных
+        координатных смещений используется формула,
+        основанная на теореме Пифагора.
+      </p>
+    </div>
+
+    <div class="fact" onclick="this.classList.toggle('open')">
+      <div class="num">ФАКТ 08 · ДОКАЗАТЕЛЬСТВО</div>
+      <h3>Площади можно переставить</h3>
+      <p>
+        Некоторые доказательства показывают теорему
+        с помощью разрезания и перестановки фигур:
+        одни и те же части складывают в разные
+        квадраты, демонстрируя равенство их площадей.
+      </p>
+    </div>
+
+    <div class="fact" onclick="this.classList.toggle('open')">
+      <div class="num">ФАКТ 09 · ГЕОМЕТРИЯ СФЕРЫ</div>
+      <h3>На глобусе всё иначе</h3>
+      <p>
+        Обычная теорема Пифагора относится к плоской
+        геометрии. На поверхности сферы, например
+        на глобусе, расстояния и треугольники устроены
+        иначе, поэтому нужны другие геометрические
+        правила.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Сделано для любопытных · Теорема Пифагора
+</footer>
+
+<script>
+
+const aSlider = document.getElementById('aSlider');
+const bSlider = document.getElementById('bSlider');
+
+const fmt = n => n.toFixed(2);
+const fmt1 = n => n.toFixed(1);
+
+function update() {
+
+  let a = Number(aSlider.value);
+  let b = Number(bSlider.value);
+  let c = Math.hypot(a,b);
+
+  document.getElementById('aOut').textContent = fmt1(a);
+  document.getElementById('bOut').textContent = fmt1(b);
+
+  document.getElementById('aValue').textContent = fmt(a);
+  document.getElementById('bValue').textContent = fmt(b);
+  document.getElementById('cValue').textContent = fmt(c);
+
+  document.getElementById('aSq').textContent = fmt1(a)+'²';
+  document.getElementById('bSq').textContent = fmt1(b)+'²';
+  document.getElementById('cSq').textContent = fmt1(c)+'²';
+
+  document.getElementById('aArea').textContent = fmt(a*a);
+  document.getElementById('bArea').textContent = fmt(b*b);
+
+  document.getElementById('proof').textContent =
+    fmt(a*a)+' + '+fmt(b*b)+' = '+fmt(c*c)+
+    ' · равенство выполняется ✓';
+
+  draw(a,b,c);
+}
+
+function draw(a,b,c) {
+
+  const svg = document.getElementById('diagram');
+
+  const scale = Math.min(150/Math.max(a,b), 180/c);
+
+  const x = 175;
+  const y = 210;
+
+  const ax = a*scale;
+  const by = b*scale;
+
+  const P1 = [x,y];
+  const P2 = [x+ax,y];
+  const P3 = [x,y-by];
+
+  const points = arr =>
+    arr.map(p => p.join(',')).join(' ');
+
+  const squareA = [
+    P1,
+    P2,
+    [x+ax,y+ax],
+    [x,y+ax]
+  ];
+
+  const squareB = [
+    P1,
+    P3,
+    [x-by,y-by],
+    [x-by,y]
+  ];
+
+  const vx = P3[0]-P2[0];
+  const vy = P3[1]-P2[1];
+
+  const squareC = [
+    P2,
+    P3,
+    [P3[0]+by,P3[1]-ax],
+    [P2[0]+by,P2[1]-ax]
+  ];
+
+  svg.innerHTML = `
+
+    <polygon points="${points(squareB)}"
+      fill="#c8ff70" fill-opacity=".12"
+      stroke="#c8ff70" stroke-width="1.5"/>
+
+    <polygon points="${points(squareA)}"
+      fill="#55d8ff" fill-opacity=".14"
+      stroke="#55d8ff" stroke-width="1.5"/>
+
+    <polygon points="${points(squareC)}"
+      fill="#ff7ac8" fill-opacity=".13"
+      stroke="#ff7ac8" stroke-width="1.5"/>
+
+    <polygon points="${points([P1,P2,P3])}"
+      fill="#6d91ff" fill-opacity=".18"
+      stroke="#6d91ff" stroke-width="2"/>
+
+    <path d="M ${x+12} ${y} L ${x+12} ${y-12} L ${x} ${y-12}"
+      fill="none" stroke="white" stroke-width="1.5"/>
+
+    <text x="${x+ax/2}" y="${y+22}"
+      text-anchor="middle" class="svglabel">
+      a = ${fmt1(a)}
+    </text>
+
+    <text x="${x-18}" y="${y-by/2}"
+      text-anchor="middle" class="svglabel">
+      b = ${fmt1(b)}
+    </text>
+
+    <text x="${(P2[0]+P3[0])/2+12}"
+      y="${(P2[1]+P3[1])/2-8}"
+      text-anchor="middle" class="svglabel">
+      c = ${fmt1(c)}
+    </text>
+
+    <text x="${x+ax/2}" y="${y+ax/2}"
+      text-anchor="middle" class="squares">a²</text>
+
+    <text x="${x-by/2}" y="${y-by/2}"
+      text-anchor="middle" class="squares">b²</text>
+
+    <text x="${(P2[0]+P3[0]+squareC[2][0])/3}"
+      y="${(P2[1]+P3[1]+squareC[2][1])/3}"
+      text-anchor="middle" class="squares">c²</text>
+  `;
+}
+
+aSlider.addEventListener('input',update);
+bSlider.addEventListener('input',update);
+
+update();
+
+</script>
+
+</body>
+</html>
